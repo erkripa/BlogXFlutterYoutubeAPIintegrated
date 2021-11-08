@@ -12,7 +12,7 @@ class _ImageDetailsState extends State<ImageDetails> {
   Widget build(BuildContext context) {
     final data = ModalRoute.of(context)!.settings.arguments as dynamic;
     final image = data['_embedded']['wp:featuredmedia'][0]['source_url'];
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       child: Image.network(

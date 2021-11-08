@@ -1,8 +1,8 @@
 import 'package:blogapi/src/constant.dart';
 import 'package:blogapi/src/screens/latest_post.dart';
+import 'package:blogapi/src/screens/myvideos.dart';
 import 'package:blogapi/src/screens/photos.dart';
 import 'package:blogapi/src/screens/popular_post.dart';
-import 'package:blogapi/src/screens/video_page.dart';
 import 'package:blogapi/src/settings/settings_view.dart';
 import 'package:blogapi/src/widgets.dart/mydrawer.dart';
 import 'package:flutter/material.dart';
@@ -116,7 +116,7 @@ class _MainTabsState extends State<MainTabs>
             const LatestPost(),
             const PopularPost(),
             Myphotos(),
-            MyVideoPlayePage(),
+            const MyVideos(),
           ],
         ),
       ),

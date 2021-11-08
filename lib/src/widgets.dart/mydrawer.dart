@@ -1,17 +1,25 @@
+import 'package:blogapi/src/constant.dart';
+import 'package:blogapi/src/data/page_data.dart';
+import 'package:blogapi/src/screens/pages/contact_page.dart';
 import 'package:flutter/material.dart';
 
-class MyDrawer extends StatelessWidget {
-  const MyDrawer({Key? key, })
-      : super(key: key);
-// required this.context, required this.stateBool
-  // final BuildContext context;
-  // final bool stateBool;
-//  stateBool ? Colors.grey[800] : 
+class MyDrawer extends StatefulWidget {
+  const MyDrawer({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<MyDrawer> createState() => _MyDrawerState();
+}
+
+class _MyDrawerState extends State<MyDrawer> {
+  final PageData _pageData = PageData();
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
-        color:Colors.pinkAccent,
+        color: Colors.pinkAccent,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -21,24 +29,24 @@ class MyDrawer extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  const CircleAvatar(
-                    radius: 55,
-                  ),
-                  const SizedBox(width: 10.0),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  DrawerHeader(
+                      child: Column(
                     children: const [
-                      Text(
-                        "Ayush Kumar",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                      CircleAvatar(
+                        radius: 45,
+                        backgroundImage: NetworkImage(
+                          'https://bootdey.com/img/Content/avatar/avatar7.png',
+                          scale: 1.0,
                         ),
                       ),
-                      Text("ayush@gmail.com",
-                          style: TextStyle(color: Colors.white)),
+                      Text(
+                        "Ayush Kumar\nayush@gmail.com",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                     ],
-                  ),
+                  )),
                 ],
               ),
             )),
@@ -46,23 +54,53 @@ class MyDrawer extends StatelessWidget {
               thickness: 1.5,
               color: Colors.white,
               indent: 15,
-              endIndent: 15,
+              endIndent: 10,
             ),
             Expanded(
-              child: ListView.builder(
-                itemCount: 3,
-                itemBuilder: (context, i) {
-                  return const ListTile(
-                    title: Center(
-                        child: Text(
-                      "Services",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    )),
-                  );
+              child: FutureBuilder<List>(
+                future: _pageData.getAllPage,
+                builder: (context, snapshots) {
+                  if (snapshots.hasData) {
+                    if (snapshots.data!.isEmpty) {
+                      return const Center(
+                        child: Text("No Page Created yet!"),
+                      );
+                    }
+
+                    return ListView.builder(
+                      itemCount: snapshots.data!.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          leading: const Icon(
+                            Icons.forward,
+                            color: Colors.yellow,
+                            size: 35,
+                          ),
+                          title: Text(
+                            snapshots.data![index]['title']['rendered'],
+                            style: kPageTitleTextStyle,
+                          ),
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ContactPage(),
+                              settings: RouteSettings(
+                                arguments: snapshots.data![index],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  } else if (snapshots.hasError) {
+                    return const Center(
+                      child: Text("Server Error"),
+                    );
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
                 },
               ),
             ),

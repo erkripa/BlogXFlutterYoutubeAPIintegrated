@@ -11,3 +11,13 @@ const subTitleTextStyle = TextStyle(
 const kTabStyle = TextStyle(
   fontSize: 16,
 );
+
+const kPageTitleTextStyle = TextStyle(
+  color: Colors.white,
+  fontWeight: FontWeight.bold,
+  fontSize: 18,
+);
+
+const kDescStyle = TextStyle(
+  fontSize: 16,
+);
