@@ -1,5 +1,6 @@
 import 'package:blogapi/src/data/postdata.dart';
 import 'package:blogapi/src/screens/image_details.dart';
+import 'package:blogapi/src/widgets.dart/cprogress_idicator.dart';
 import 'package:flutter/material.dart';
 
 class Myphotos extends StatelessWidget {
@@ -21,20 +22,20 @@ class Myphotos extends StatelessWidget {
           return ListView.builder(
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
+              final data = snapshot.data![index];
               return GestureDetector(
                 onDoubleTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => const ImageDetails(),
                         settings: RouteSettings(
-                          arguments: snapshot.data![index],
+                          arguments: data,
                         ))),
                 child: Container(
                   color: Colors.white.withOpacity(0.9),
                   child: Card(
                     child: Image.network(
-                      snapshot.data![index]['_embedded']['wp:featuredmedia'][0]
-                          ['source_url'],
+                      data['_embedded']['wp:featuredmedia'][0]['source_url'],
                     ),
                   ),
                 ),
@@ -46,7 +47,7 @@ class Myphotos extends StatelessWidget {
             child: Text("Server Error"),
           );
         } else {
-          return const Center(child: CircularProgressIndicator());
+          return const CProgressIndicator();
         }
       },
     );

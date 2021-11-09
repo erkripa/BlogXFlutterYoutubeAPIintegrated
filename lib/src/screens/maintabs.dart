@@ -5,6 +5,7 @@ import 'package:blogapi/src/screens/photos.dart';
 import 'package:blogapi/src/screens/popular_post.dart';
 import 'package:blogapi/src/settings/settings_view.dart';
 import 'package:blogapi/src/widgets.dart/mydrawer.dart';
+import 'package:blogapi/src/widgets.dart/round_icon_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -21,7 +22,6 @@ class _MainTabsState extends State<MainTabs>
     with SingleTickerProviderStateMixin {
   TabController? tabController;
   final _scafoldKey = GlobalKey<ScaffoldState>();
-  // var stateBool = false;
   final List<Tab> _tabs = <Tab>[
     const Tab(child: Text('Latest', style: kTabStyle)),
     const Tab(child: Text('Popular', style: kTabStyle)),
@@ -55,49 +55,17 @@ class _MainTabsState extends State<MainTabs>
     var appBar = AppBar(
       title: const Text("BlogX"),
       actions: [
-        Container(
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.white24,
-          ),
-          child: IconButton(
-            icon: const Icon(Icons.search),
-            splashColor: Colors.pink,
-            highlightColor: Colors.white38,
-            onPressed: () => {},
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.only(left: 10, right: 5),
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.white24,
-          ),
-          child: IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
+        RoundIconWidget(icon: Icons.search, onPress: () => {}),
+        RoundIconWidget(
+            icon: Icons.settings,
+            onPress: () {
               Navigator.restorablePushNamed(context, SettingsView.routeName);
-            },
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.only(left: 10, right: 5),
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.white24,
-          ),
-          child: IconButton(
-            icon: const Icon(Icons.menu),
-            splashColor: Colors.pink,
-            highlightColor: Colors.white38,
-            onPressed: () {
-              // stateBool = true;
-
+            }),
+        RoundIconWidget(
+            icon: Icons.menu,
+            onPress: () {
               _scafoldKey.currentState!.openEndDrawer();
-              // setState(() {});
-            },
-          ),
-        ),
+            })
       ],
       bottom: TabBar(
         controller: tabController,

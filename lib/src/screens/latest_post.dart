@@ -24,10 +24,11 @@ class _LatestPostState extends State<LatestPost> {
               child: Text("0 Post "),
             );
           }
-
           return ListView.builder(
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
+              final data = snapshot.data![index];
+
               return Card(
                 elevation: 0.5,
                 child: ListTile(
@@ -37,22 +38,22 @@ class _LatestPostState extends State<LatestPost> {
                       children: [
                         Expanded(
                           child: Image.network(
-                            snapshot.data![index]['_embedded']
-                                ['wp:featuredmedia'][0]['source_url'],
+                            data['_embedded']['wp:featuredmedia'][0]
+                                ['source_url'],
                             fit: BoxFit.cover,
                           ),
                         ),
                         const SizedBox(width: 10),
                         Expanded(
                             child: Text(
-                          snapshot.data![index]['title']['rendered'],
+                          data['title']['rendered'],
                           style: titleTextStyle,
                         )),
                       ],
                     ),
                   ),
                   subtitle: Text(
-                    snapshot.data![index]['content']['rendered']
+                    data['content']['rendered']
                         .toString()
                         .replaceAll("<p>", "")
                         .replaceAll('</p>', ''),
@@ -63,9 +64,9 @@ class _LatestPostState extends State<LatestPost> {
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>const  PostDetails(),
+                      builder: (context) => const PostDetails(),
                       settings: RouteSettings(
-                        arguments: snapshot.data![index],
+                        arguments: data,
                       ),
                     ),
                   ),

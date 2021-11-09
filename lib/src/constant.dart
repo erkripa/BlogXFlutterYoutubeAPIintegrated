@@ -21,3 +21,7 @@ const kPageTitleTextStyle = TextStyle(
 const kDescStyle = TextStyle(
   fontSize: 16,
 );
+const kIconboxDecoration = BoxDecoration(
+  shape: BoxShape.circle,
+  color: Colors.white24,
+);

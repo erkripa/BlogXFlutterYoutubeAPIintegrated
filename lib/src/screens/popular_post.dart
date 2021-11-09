@@ -1,6 +1,7 @@
 import 'package:blogapi/src/constant.dart';
 import 'package:blogapi/src/data/mycategoy.dart';
 import 'package:blogapi/src/screens/post_details.dart';
+import 'package:blogapi/src/widgets.dart/cprogress_idicator.dart';
 
 import 'package:flutter/material.dart';
 
@@ -29,6 +30,7 @@ class _PopularPostState extends State<PopularPost> {
           return ListView.builder(
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
+              final data = snapshot.data![index];
               return Card(
                 elevation: 0.5,
                 child: ListTile(
@@ -38,21 +40,21 @@ class _PopularPostState extends State<PopularPost> {
                       children: [
                         Expanded(
                           child: Image.network(
-                            snapshot.data![index]['_embedded']
-                                ['wp:featuredmedia'][0]['source_url'],
+                            data['_embedded']['wp:featuredmedia'][0]
+                                ['source_url'],
                           ),
                         ),
                         const SizedBox(width: 10),
                         Expanded(
                             child: Text(
-                          snapshot.data![index]['title']['rendered'],
+                          data['title']['rendered'],
                           style: titleTextStyle,
                         )),
                       ],
                     ),
                   ),
                   subtitle: Text(
-                    snapshot.data![index]['content']['rendered']
+                    data['content']['rendered']
                         .toString()
                         .replaceAll("<p>", "")
                         .replaceAll('</p>', ''),
@@ -65,7 +67,7 @@ class _PopularPostState extends State<PopularPost> {
                     MaterialPageRoute(
                       builder: (context) => const PostDetails(),
                       settings: RouteSettings(
-                        arguments: snapshot.data![index],
+                        arguments: data,
                       ),
                     ),
                   ),
@@ -79,7 +81,7 @@ class _PopularPostState extends State<PopularPost> {
           );
         } else {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CProgressIndicator(),
           );
         }
       },

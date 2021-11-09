@@ -2,6 +2,7 @@ import 'package:blogapi/src/models/channel_models.dart';
 import 'package:blogapi/src/models/video_models.dart';
 import 'package:blogapi/src/screens/display_video.dart';
 import 'package:blogapi/src/services/api_services.dart';
+import 'package:blogapi/src/widgets.dart/cprogress_idicator.dart';
 import 'package:flutter/material.dart';
 
 class MyVideos extends StatefulWidget {
@@ -35,10 +36,11 @@ class _MyVideosState extends State<MyVideos> {
       padding: const EdgeInsets.all(20.0),
       height: 100.0,
       decoration: const BoxDecoration(
-        color: Colors.white,
+        shape: BoxShape.rectangle,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black12,
+            color: Colors.white10,
             offset: Offset(0, 1),
             blurRadius: 6.0,
           ),
@@ -60,7 +62,6 @@ class _MyVideosState extends State<MyVideos> {
                 Text(
                   _channel!.title,
                   style: const TextStyle(
-                    color: Colors.black,
                     fontSize: 20.0,
                     fontWeight: FontWeight.w600,
                   ),
@@ -68,8 +69,7 @@ class _MyVideosState extends State<MyVideos> {
                 ),
                 Text(
                   '${_channel!.subscriberCount} subscribers',
-                  style: TextStyle(
-                    color: Colors.grey[600],
+                  style: const TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.w600,
                   ),
@@ -96,10 +96,11 @@ class _MyVideosState extends State<MyVideos> {
         padding: const EdgeInsets.all(10.0),
         height: 140.0,
         decoration: const BoxDecoration(
-          color: Colors.white,
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.all(Radius.circular(12)),
           boxShadow: [
             BoxShadow(
-              color: Colors.black12,
+              color: Colors.white10,
               offset: Offset(0, 1),
               blurRadius: 6.0,
             ),
@@ -116,8 +117,7 @@ class _MyVideosState extends State<MyVideos> {
               child: Text(
                 video.title,
                 style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 18.0,
+                  fontSize: 17.0,
                 ),
               ),
             ),
@@ -164,13 +164,7 @@ class _MyVideosState extends State<MyVideos> {
                 },
               ),
             )
-          : Center(
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(
-                  Theme.of(context).primaryColor, // Red
-                ),
-              ),
-            ),
+          : const CProgressIndicator(),
     );
   }
 }
