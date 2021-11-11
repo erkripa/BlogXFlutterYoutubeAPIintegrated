@@ -16,7 +16,8 @@ dependencies:
     sdk: flutter
   http: ^0.13.4
   video_player: ^2.2.6 
-  youtube_player_flutter: ^8.0.0   
+  youtube_player_flutter: ^8.0.0
+  rename: ^2.0.1   
 
 dev_dependencies:
   flutter_test:
